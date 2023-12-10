@@ -9,11 +9,13 @@ import crs.Course;
 import crs.Main;
 import crs.SecurityLevel;
 import crs.client.filehandling.FileHandler;
+import crs.course.Lab;
+import crs.course.Lecture;
 
 public class AdminClient extends SecureClient {
 
 	private ArgumentsHandler arguments_handler;
-
+	
 	private AdminClient(String user_key, SecurityLevel base_level) {
 		super(user_key, base_level);
 	}
@@ -34,12 +36,30 @@ public class AdminClient extends SecureClient {
 
 	@Override
 	public void addCourse() {
-		// TODO: Unimplemented method addCourse()
+		System.out.print("Enter CRN: ");
+		int crn = Main.user_input.nextInt();
+		Course c = Main.course_registry.searchCourse(crn);
+		if (c != null) {
+			schedule.add(c);
+			c.setNumberOfSeats(c.getNumberOfSeats() - 1);
+		} else {
+			System.out.println("No course found matching CRN " + crn);
+		}
 	}
 
 	@Override
 	public void dropCourse() {
-		// TODO: Unimplemented method dropCourse()
+		System.out.print("Enter CRN: ");
+		int crn = Main.user_input.nextInt();
+		Course c = Main.course_registry.searchCourse(crn);
+		if (c != null) {
+			if (schedule.contains(c)) {
+				schedule.remove(c);
+				c.setNumberOfSeats(c.getNumberOfSeats() + 1);
+			}
+		} else {
+			System.out.println("No course found matching CRN " + crn);
+		}
 	}
 
 	@Override
@@ -52,53 +72,38 @@ public class AdminClient extends SecureClient {
 		else
 			System.out.println("No course found matching CRN " + crn);
 	}
-
+	
+	@Override
+	public void printSchedule() {
+		for (Course c : schedule) {
+			System.out.println(c.toString());
+		}
+	}
+	
 	public void checkSecurity() {
-		// TODO: Unimplemented method checkSecurity()
+		System.out.println("Current security level is " + security_level.toString());
 	}
 
 	public void elevate() {
-		// TODO: Unimplemented method elevate()
+		this.security_level = SecurityLevel.LEVEL_SYSADMIN;
+		checkSecurity();
 	}
 
 	public void linkLabAndLecture() {
-		// TODO: Unimplmeneted method linkLabAndLecture()
-	}
-
-	public void changeInstructor() {
-		// TODO: Unimplemented method changeInstructor()
-	}
-
-	public void addTA() {
-		// TODO: Unimplemented method addTA()
-	}
-
-	public void removeTA() {
-		// TODO: Unimplemented method removeTA()
-	}
-
-	public void modifyCourseRegistry() {
-		// TODO: Unimplemented method modifyCourseRegistry()
-	}
-
-	public void addCourseRegistry() {
-		// TODO: Unimplemented method addCourseRegistry()
-	}
-
-	public void deleteCourseRegistry() {
-		// TODO: Unimplemented method deleteCourseRegistry()
-	}
-
-	public void modifySection() {
-		// TODO: Unimplemented method modifySection()
-	}
-
-	public void addSection() {
-		// TODO: Unimplemented method addSection()
-	}
-
-	public void deleteSection() {
-		// TODO: Unimplemented method deleteSection()
+		System.out.print("Enter Lecture CRN: ");
+		int crn = Main.user_input.nextInt();
+		Lecture l = (Lecture)(Main.course_registry.searchCourse(crn));
+		if (l != null) {
+			System.out.print("\nEnter Lab CRN: ");
+			int lab_crn = Main.user_input.nextInt();
+			Lab lab = (Lab)(Main.course_registry.searchCourse(lab_crn));
+			if (lab != null) {
+				l.setLinked_section(lab_crn);
+				lab.setLinked_section(crn);
+			} else
+				System.out.println("No lab found matching CRN " + lab_crn);
+		} else
+			System.out.println("No lecture found matching CRN " + crn);
 	}
 
 	private HashMap<String, List<Course>> loadPreReq() {
@@ -151,41 +156,13 @@ public class AdminClient extends SecureClient {
 					System.out.println("Linking lab and lecture...");
 					linkLabAndLecture();
 					break;
-				case OPTION_CHANGE_INSTRUCTOR:
-					System.out.println("Changing course instructor...");
-					changeInstructor();
+				case OPTION_PRINT_SCHEDULE:
+					System.out.println("Printing schedule...");
+					printSchedule();
 					break;
-				case OPTION_ADD_TA:
-					System.out.println("Adding TA to course...");
-					addTA();
-					break;
-				case OPTION_REMOVE_TA:
-					System.out.println("Removing TA from course...");
-					removeTA();
-					break;
-				case OPTION_MODIFY_COURSE_REGISTRY:
-					System.out.println("Modifying course in registry...");
-					modifyCourseRegistry();
-					break;
-				case OPTION_ADD_COURSE_REGISTRY:
-					System.out.println("Adding course to registry...");
-					addCourseRegistry();
-					break;
-				case OPTION_DELETE_COURSE_REGISTRY:
-					System.out.println("Deleting course from registry...");
-					deleteCourseRegistry();
-					break;
-				case OPTION_MODIFY_SECTION:
-					System.out.println("Modifying course section...");
-					modifySection();
-					break;
-				case OPTION_ADD_SECTION:
-					System.out.println("Adding section of course...");
-					addSection();
-					break;
-				case OPTION_DELETE_SECTION:
-					System.out.println("Deleting section of course...");
-					deleteSection();
+				case OPTION_ELEVATE:
+					System.out.println("Elevating...");
+					elevate();
 					break;
 				case -1:
 					System.err.println("Error getting option in +AdminClient.run(): void");

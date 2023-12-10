@@ -49,17 +49,48 @@ public class StudentClient extends SecureClient {
 
 	@Override
 	public void addCourse() {
-		// TODO: Unimplemented method addCourse()
+		System.out.print("Enter CRN: ");
+		int crn = Main.user_input.nextInt();
+		Course c = Main.course_registry.searchCourse(crn);
+		if (c != null) {
+			schedule.add(c);
+			c.setNumberOfSeats(c.getNumberOfSeats() - 1);
+		} else {
+			System.out.println("No course found matching CRN " + crn);
+		}
 	}
 
 	@Override
 	public void dropCourse() {
-		// TODO: Unimplemented method dropCourse()
+		System.out.print("Enter CRN: ");
+		int crn = Main.user_input.nextInt();
+		Course c = Main.course_registry.searchCourse(crn);
+		if (c != null) {
+			if (schedule.contains(c)) {
+				schedule.remove(c);
+				c.setNumberOfSeats(c.getNumberOfSeats() + 1);
+			}
+		} else {
+			System.out.println("No course found matching CRN " + crn);
+		}
 	}
 
 	@Override
 	public void searchCourse() {
-		// TODO: Unimplemented method searchCourse()
+		System.out.print("Enter CRN: ");
+		int crn = Main.user_input.nextInt();
+		Course c = Main.course_registry.searchCourse(crn);
+		if (c != null)
+			System.out.println("Found course\n" + c.stringRepresentation());
+		else
+			System.out.println("No course found matching CRN " + crn);
+	}
+	
+	@Override
+	public void printSchedule() {
+		for (Course c : schedule) {
+			System.out.println(c.toString());
+		}
 	}
 
 	@Override
@@ -87,6 +118,10 @@ public class StudentClient extends SecureClient {
 				case Client.OPTION_SEARCH_COURSE:
 					System.out.println("Searching for a course...");
 					searchCourse();
+					break;
+				case Client.OPTION_PRINT_SCHEDULE:
+					System.out.println("Print schedule...");
+					printSchedule();
 					break;
 				case -1:
 					System.err.println("Error getting option in +AdminClient.run(): void");

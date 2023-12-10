@@ -1,5 +1,6 @@
 package crs.client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -13,6 +14,8 @@ import crs.SecurityLevel;
 public abstract class SecureClient implements Client {
 	
 	protected HashMap<String, List<Course>> pre_req;
+	
+	protected ArrayList<Course> schedule = new ArrayList<Course>();
 	
 	public SecurityLevel base_level = SecurityLevel.LEVEL_NONE;
 	public SecurityLevel security_level;
@@ -52,43 +55,37 @@ public abstract class SecureClient implements Client {
 		setOptionRange(1);
 		
 		if (security_level == SecurityLevel.LEVEL_STUDENT) {
-			System.out.println("2.  Add course");
-			System.out.println("3.  Drop course");
-			System.out.println("4.  Search for course");
+			System.out.println("2.  Print schedule");
+			System.out.println("3.  Add course");
+			System.out.println("4.  Drop course");
+			System.out.println("5.  Search for course");
 			
-			setOptionRange(4);
+			setOptionRange(5);
 		} else if (security_level == SecurityLevel.LEVEL_ADMIN) {
-			System.out.println("2.  Add course");
-			System.out.println("3.  Drop course");
-			System.out.println("4.  Search for course");
-			System.out.println("5.  Check security level");
-			System.out.println("6.  Elevate to sysadmin");
+			System.out.println("2.  Print schedule");
+			System.out.println("3.  Add course");
+			System.out.println("4.  Drop course");
+			System.out.println("5.  Search for course");
+			System.out.println("6.  Check security level");
+			System.out.println("7.  Elevate to sysadmin level");
 		
-			setOptionRange(6);
+			setOptionRange(7);
 		} else if (security_level == SecurityLevel.LEVEL_SYSADMIN) {
-			System.out.println("2.  Add course");
-			System.out.println("3.  Drop course");
-			System.out.println("4.  Search for course");
-			System.out.println("5.  Check security level");
-			System.out.println("6.  Elevate to sysadmin");
-			System.out.println("7. Link lecture and lab together");
-			System.out.println("8. Change course instructor");
-			System.out.println("9. Add TA to course");
-			System.out.println("10. Remove TA from course");
-			System.out.println("11. Modify course in registry");
-			System.out.println("12. Add new course to registry");
-			System.out.println("13. Delete course from registry by CRN");
-			System.out.println("14. Modify course section by CRN");
-			System.out.println("15. Add new course section");
-			System.out.println("16. Delete course section by CRN");
+			System.out.println("2.  Print schedule");
+			System.out.println("3.  Add course");
+			System.out.println("4.  Drop course");
+			System.out.println("5.  Search for course");
+			System.out.println("6.  Check security level");
+			System.out.println("7.  Elevate to sysadmin level");
+			System.out.println("8.  Link lecture and lab together");
 			
-			setOptionRange(16);
+			setOptionRange(8);
 		}
 	}
 
 	@Override
 	public void onExit() {
-		System.err.println("|DEBUG|METHOD_UNIMPLEMENTED|+O SecureClient.onExit(): void");
+		System.out.println("Exiting...");
 	}
 
 	@Override
