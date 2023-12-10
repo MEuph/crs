@@ -10,18 +10,16 @@ public class CourseRegistry {
 	public ArrayList<Course> courses = new ArrayList<Course>();
 	
 	private CourseRegistry(String registry_file) {
-		// TODO Unimpplemented constructor CourseRegistry(registry_file: String)
 		FileHandler.addFile("registry", registry_file);
 		courses = FileHandler.loadRegistry();
-
-		for (Course c : courses) {
-			System.out.println();
-			System.out.println(c.toString());
-		}
 	}
 	
 	public Course searchCourse(int crn) {
-		// TODO: Unimplemented method searchCourse(crn: int): Course
+		for (int i = 0; i < courses.size(); i++) {
+			if (courses.get(i).getCrn() == crn) {
+				return courses.get(i);
+			}
+		}
 		
 		return null;
 	}

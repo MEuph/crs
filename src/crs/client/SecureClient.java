@@ -89,8 +89,6 @@ public abstract class SecureClient implements Client {
 			
 			setOptionRange(19);
 		}
-		
-		System.out.println("Type man <option_number> for help with an option");
 	}
 
 	@Override

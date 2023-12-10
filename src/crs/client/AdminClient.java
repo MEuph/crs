@@ -126,8 +126,6 @@ public class AdminClient extends SecureClient {
 		client.arguments_handler = new ArgumentsHandler(client.security_level);
 
 		client.pre_req = client.loadPreReq();
-		
-		System.out.println(client.pre_req.toString());
 
 		return client;
 	}
