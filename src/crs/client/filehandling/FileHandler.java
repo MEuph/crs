@@ -154,7 +154,6 @@ public class FileHandler {
 					for (; !tokens[i].equals("|"); i++) {
 						name += tokens[i] + " ";
 					}
-					System.out.println("Detected course name: " + name);
 
 					String desc = "";
 					i++;
@@ -162,28 +161,20 @@ public class FileHandler {
 						desc += tokens[i] + " ";
 					}
 					
-					System.out.println("Detected course desc: " + desc);
-
 					i++;
 					int crn = Integer.parseInt(tokens[i]);
-					
-					System.out.println("Detected crn: " + crn);
 
 					i += 2;
 					int linked_lab = -1;
 					if (!tokens[i].equals("x")) {
 						linked_lab = Integer.parseInt(tokens[i]);
 					}
-					
-					System.out.println("Detected lab: " + linked_lab);
 
 					i += 2;
 					String instructor_name = "";
 					for (; !tokens[i].equals("|"); i++) {
 						instructor_name += tokens[i] + " ";
 					}
-					
-					System.out.println("Detected instructor: " + instructor_name);
 
 					i++;
 					ArrayList<String> TAs = new ArrayList<>();

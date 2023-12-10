@@ -61,33 +61,28 @@ public abstract class SecureClient implements Client {
 			System.out.println("2.  Add course");
 			System.out.println("3.  Drop course");
 			System.out.println("4.  Search for course");
-			System.out.println("5.  Search for student info (R# needed)");
-			System.out.println("6.  Check security level");
-			System.out.println("7.  Elevate to sysadmin");
-			System.out.println("8.  Assign student to course");
-			System.out.println("9.  Drop student from course");
-	
-			setOptionRange(9);
+			System.out.println("5.  Check security level");
+			System.out.println("6.  Elevate to sysadmin");
+		
+			setOptionRange(6);
 		} else if (security_level == SecurityLevel.LEVEL_SYSADMIN) {
-			System.out.println("3.  Add course");
-			System.out.println("4.  Drop course");
-			System.out.println("5.  Search for student info (R# needed)");
-			System.out.println("6.  Check security level");
-			System.out.println("7.  Elevate to sysadmin");
-			System.out.println("8.  Assign student to course");
-			System.out.println("9.  Drop student from course");
-			System.out.println("10. Link lecture and lab together");
-			System.out.println("11. Change course instructor");
-			System.out.println("12. Add TA to course");
-			System.out.println("13. Remove TA from course");
-			System.out.println("14. Modify course in registry");
-			System.out.println("15. Add new course to registry");
-			System.out.println("16. Delete course from registry by CRN");
-			System.out.println("17. Modify course section by CRN");
-			System.out.println("18. Add new course section");
-			System.out.println("19. Delete course section by CRN");
+			System.out.println("2.  Add course");
+			System.out.println("3.  Drop course");
+			System.out.println("4.  Search for course");
+			System.out.println("5.  Check security level");
+			System.out.println("6.  Elevate to sysadmin");
+			System.out.println("7. Link lecture and lab together");
+			System.out.println("8. Change course instructor");
+			System.out.println("9. Add TA to course");
+			System.out.println("10. Remove TA from course");
+			System.out.println("11. Modify course in registry");
+			System.out.println("12. Add new course to registry");
+			System.out.println("13. Delete course from registry by CRN");
+			System.out.println("14. Modify course section by CRN");
+			System.out.println("15. Add new course section");
+			System.out.println("16. Delete course section by CRN");
 			
-			setOptionRange(19);
+			setOptionRange(16);
 		}
 	}
 

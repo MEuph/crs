@@ -53,24 +53,12 @@ public class AdminClient extends SecureClient {
 			System.out.println("No course found matching CRN " + crn);
 	}
 
-	public void searchStudent() {
-		// TODO: Unimplemented method searchStudent()
-	}
-
 	public void checkSecurity() {
 		// TODO: Unimplemented method checkSecurity()
 	}
 
 	public void elevate() {
 		// TODO: Unimplemented method elevate()
-	}
-
-	public void assignCourse() {
-		// TODO: Unimplemented method assignCourse()
-	}
-
-	public void unassignCourse() {
-		// TODO: Unimplemented method unassignCourse()
 	}
 
 	public void linkLabAndLecture() {
@@ -158,22 +146,6 @@ public class AdminClient extends SecureClient {
 				case Client.OPTION_SEARCH_COURSE:
 					System.out.println("Searching for a course...");
 					searchCourse();
-					break;
-				case OPTION_SEARCH_STUDENT:
-					System.out.println("Searching for a student...");
-					searchStudent();
-					break;
-				case OPTION_ELEVATE:
-					System.out.println("Elevating to sysadmin...");
-					elevate();
-					break;
-				case OPTION_ASSIGN_COURSE:
-					System.out.println("Adding student to course...");
-					assignCourse();
-					break;
-				case OPTION_UNASSIGN_COURSE:
-					System.out.println("Dropping student from course...");
-					unassignCourse();
 					break;
 				case OPTION_LINK_LAB_LECTURE:
 					System.out.println("Linking lab and lecture...");
