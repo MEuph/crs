@@ -12,7 +12,7 @@ package crs.security;
  * 		String</code> for decryption.
  * </p>
  * 
- * @author Christopher Harris (R#11789752)
+ * @author Christopher Harris
  * @version 1.0
  *
  */
@@ -21,7 +21,7 @@ public class Cipher implements Crypto {
 	@Override
 	public String encrypt(String str) {
 		// The string to return
-		String ret = "";
+		String result = "";
 		
 		// Convert `str` to a character array
 		char[] chars = str.toCharArray();
@@ -30,16 +30,16 @@ public class Cipher implements Crypto {
 		// that is 1 less than the current char
 		for (int i = 0; i < chars.length; i++) {
 				chars[i] = (char) (chars[i] - 1);
-			ret += chars[i];
+			result += chars[i];
 		}
 		
-		return ret;
+		return result;
 	}
 
 	@Override
 	public String decrypt(String str) {
 		// The string to return
-		String ret = "";
+		String result = "";
 		
 		// Convert `str` to a character array
 		char[] chars = str.toCharArray();
@@ -48,10 +48,10 @@ public class Cipher implements Crypto {
 		// that is 1 more than the current char
 		for (int i = 0; i < chars.length; i++) {
 			chars[i] = (char) (chars[i] + 1);
-			ret += chars[i];
+			result += chars[i];
 		}
 		
-		return ret;
+		return result;
 	}
 
 }

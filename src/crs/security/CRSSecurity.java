@@ -1,10 +1,20 @@
 package crs.security;
 
+/**
+ * @author Christopher Harris
+ */
 public class CRSSecurity {
 
+	// The length of the key required by the user to use the program
 	public static final int KEY_LENGTH = 256;
 	
-	public static String generateKey(Crypto c, int length) {
+	/**
+	 * Generates a key of a specified length
+	 * @param crypto The Crypto algorithm to use
+	 * @param length The length of the key to generate
+	 * @return a valid key
+	 */
+	public static String generateKey(Crypto crypto, int length) {
 		String key = "";
 		
 		for (int i = 0; i < length - 1; i++) {
@@ -13,18 +23,25 @@ public class CRSSecurity {
 		
 		for (int i = 66; i < 90; i++) {
 			String prime_key = key + (char)i;
-			if (validateDecryptedKey(c, prime_key, length)) {
-				return c.encrypt(prime_key);
+			if (validateDecryptedKey(crypto, prime_key, length)) {
+				return crypto.encrypt(prime_key);
 			}
 		}
 		
-		return generateKey(c, length);
+		return generateKey(crypto, length);
 	}
 	
-	public static boolean validateKey(Crypto c, String key, int length) {
+	/**
+	 * Validates a particular key for a given Crypto algorithm and a specified length
+	 * @param crypto The Crypto algorithm to use
+	 * @param key The key provided
+	 * @param length The required length of the key
+	 * @return True if the key is a valid key, false if the key is invalid
+	 */
+	public static boolean validateKey(Crypto crypto, String key, int length) {
 		if (key.length() != length) return false;
 		
-		String decrypted = c.decrypt(key);
+		String decrypted = crypto.decrypt(key);
 		
 		int sum = 0;
 		for (int i = 0; i < decrypted.length() - 1; i++, sum += decrypted.charAt(i));
@@ -32,6 +49,14 @@ public class CRSSecurity {
 		return isPrime(sum);
 	}
 	
+	/**
+	 * Validates a particular key for a given Crypto algorithm and a specified length
+	 * This method assumes that the key has already been decrypted
+	 * @param crypto The Crypto algorithm to use
+	 * @param key The key provided
+	 * @param length The required length of the key
+	 * @return True if the key is a valid key, false if the key is invalid
+	 */
 	public static boolean validateDecryptedKey(Crypto c, String decrypted, int length) {
 		if (decrypted.length() != length) return false;
 		
@@ -41,6 +66,13 @@ public class CRSSecurity {
 		return isPrime(sum);
 	}
 	
+	/**
+	 * Validates a particular key for a given Crypto algorithm and a specified length
+	 * @param crypto The Crypto algorithm to use
+	 * @param key The key provided
+	 * @param length The required length of the key
+	 * @return True if the key is a valid key, false if the key is invalid
+	 */
 	public static boolean isPrime(int i) {
 		if (i <= 1) return false;
 		

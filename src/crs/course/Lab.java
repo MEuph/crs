@@ -3,25 +3,32 @@ package crs.course;
 import crs.Course;
 import crs.Main;
 
+/**
+ * @author Christopher Harris
+ * @author Jason Tran
+ * @author Jeremiah Ulate
+ * @version 1.0
+ */
 public class Lab extends Course {
-	
-	private Lecture linked_lecture;
-	
-	public Lab() {
-		
-	}
-	
+
+	/**
+	 * See Course.stringRepresentation()
+	 */
 	@Override
 	public String stringRepresentation() {
-		return "\n\t\t(Lab)" + this.department + " " + this.course_number + " | " + Main.course_registry.searchCourse(linked_crn).getName() + "\n\t\tInstructor: " + this.instructor + "\n\t\tTAs: " + this.TAs.toString() + "\n\t\tHours: " + this.credit_hours + "\n\t\tSeats Remaining: " + this.number_of_seats + "\n\t\tDescription: " + Main.course_registry.searchCourse(linked_crn).getDescription();
+		return "\n\t\t(Lab)" + this.department + " " + this.course_number + " | "
+				+ Main.course_registry.searchCourse(linked_crn).course_name + "\n\t\tInstructor: " + this.instructor
+				+ "\n\t\tTAs: " + this.TAs.toString() + "\n\t\tHours: Lab" + "\n\t\tSeats Remaining: "
+				+ this.seats + "\n\t\tDescription: "
+				+ Main.course_registry.searchCourse(linked_crn).description;
 	}
 
-	public Lecture getLinkedLecture() {
-		return linked_lecture;
+	/**
+	 * See Course.minimalStringRepresentation()
+	 */
+	@Override
+	public String minimalStringRepresentation() {
+		return "(Lab): " + this.department + " " + this.course_number + " | " + this.crn + " with"
+				+ this.TAs.toString().replace('[', ' ').replace(']', ' ') + "<Linked Lecture: " + this.linked_crn + ">";
 	}
-	
-	public void setLinkedLecture(Lecture linked_lecture) {
-		this.linked_lecture = linked_lecture;
-	}
-
 }
